@@ -36,7 +36,7 @@ export function Dashboard({ setActiveView }: DashboardProps): React.ReactNode {
                 <p className="mt-2 max-w-4xl text-lg text-gray-500">
                     For Farms Under 5 Acres in South Carolina (FY2025)
                 </p>
-                <p className="mt-1 text-sm text-gray-500">Prepared by Grok, powered by xAI | Date: August 13, 2025</p>
+                <p className="mt-1 text-sm text-gray-500">Information current as of August 2025</p>
             </div>
 
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
@@ -87,9 +87,8 @@ export function Dashboard({ setActiveView }: DashboardProps): React.ReactNode {
                         <div className="mt-4 space-y-4">
                             <div>
                                 <h3 className="font-semibold text-gray-800">SC NRCS</h3>
-                                <p className="text-gray-600">Shaun Worley</p>
-                                <p className="text-gray-500">803-253-3512</p>
-                                <p className="text-gray-500">shaun.worley@usda.gov</p>
+                                <p className="text-gray-600">Stac</p>
+                                <p className="text-gray-500">843-550-0683</p>
                             </div>
                             <div>
                                 <h3 className="font-semibold text-gray-800">SCDA</h3>

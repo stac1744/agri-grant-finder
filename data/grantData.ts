@@ -13,7 +13,7 @@ export const nrcsPrograms: GrantProgram[] = [
     submission: {
       forms: 'NRCS-CPA-1200 (Application), NRCS-CPA-1202 (Contract), NRCS-CPA-1155 (Plan/Schedule). Download: https://www.nrcs.usda.gov/resources/forms. Conservation Activity Plan (CAP) via TSP for E199A.',
       steps: [
-        'Contact SC NRCS (Shaun Worley, 803-253-3512, shaun.worley@usda.gov) for eligibility screening.',
+        'Contact SC NRCS (Stac, 843-550-0683) for eligibility screening.',
         'Submit NRCS-CPA-1200 with operation details (land use, acreage, practices).',
         'Complete Conservation Program Application Worksheet (assess resource concerns, e.g., SCI for soil).',
         'Work with NRCS for ranking (WHEG for wildlife, SCI for soil); priority for CSAF (e.g., E328E).',

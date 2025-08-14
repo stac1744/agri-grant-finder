@@ -55,7 +55,7 @@ export function Analysis(): React.ReactNode {
             </div>
 
              <div className="mt-12 text-center text-sm text-gray-500">
-                <p>For the most current information, contact SC NRCS (Shaun Worley, 803-253-3512), SCDA (Betsy Dorton, bdorton@scda.sc.gov), or visit grok.com for updates.</p>
+                <p>For the most current information, contact SC NRCS (Stac, 843-550-0683) or SCDA (Betsy Dorton, bdorton@scda.sc.gov).</p>
             </div>
         </div>
     );
