@@ -1,0 +1,5 @@
+{
+  "name": "AgriGrant SC",
+  "description": "An interactive guide to agriculture grants for small farms in South Carolina. The application provides detailed information on various grant programs from USDA, EPA, and other agencies, including eligibility, funding, deadlines, and application tips. It also features a filterable list of CSP enhancements and strategic analysis for maximizing grant acquisition.",
+  "requestFramePermissions": []
+}
