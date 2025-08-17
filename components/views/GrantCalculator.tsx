@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleGenAI, Type } from "@google/genai";
 import { nrcsPrograms, amsPrograms, scdaPrograms, nifaPrograms, otherPrograms, cspEnhancements } from '../../data/grantData';
+import { PdfDownloadButton, generatePdf } from '../ui/PdfGenerator';
 
 interface GrantRecommendation {
     id: string;
@@ -31,6 +32,7 @@ export function GrantCalculator(): React.ReactNode {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [result, setResult] = useState<AnalysisResult | null>(null);
+    const [isPdfLoading, setIsPdfLoading] = useState(false);
 
     const goalsOptions = [
         'Improve soil health (e.g., cover crops, no-till)',
@@ -181,6 +183,10 @@ ${userProfile}
             setLoading(false);
         }
     };
+    
+    const handleDownloadPdf = () => {
+        generatePdf('pdf-content', 'AgriGrant_SC_Calculator_Results', setIsPdfLoading);
+    };
 
     return (
         <div className="space-y-8">
@@ -265,8 +271,13 @@ ${userProfile}
             {error && <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md" role="alert"><p>{error}</p></div>}
 
             {result && (
-                 <div className="bg-primary-50 p-6 rounded-lg shadow-sm mt-8 animate-fade-in space-y-8">
-                    <h2 className="text-2xl font-bold text-primary-900 text-center">Your Grant Potential Analysis</h2>
+                 <div id="pdf-content" className="bg-primary-50 p-6 rounded-lg shadow-sm mt-8 animate-fade-in space-y-8">
+                    <div className="text-center">
+                         <h2 className="text-2xl font-bold text-primary-900">Your Grant Potential Analysis</h2>
+                         <div className="mt-4">
+                            <PdfDownloadButton isLoading={isPdfLoading} onClick={handleDownloadPdf} className="mx-auto" />
+                         </div>
+                    </div>
                     
                     {/* Grant Recommendations */}
                     <div>

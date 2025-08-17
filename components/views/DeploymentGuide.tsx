@@ -1,5 +1,5 @@
-
-import React from 'react';
+import React, { useState } from 'react';
+import { PdfDownloadButton, generatePdf } from '../ui/PdfGenerator';
 
 const InfoCard: React.FC<{ title: string; children: React.ReactNode; link: string; }> = ({ title, children, link }) => (
     <div className="bg-white p-6 rounded-lg shadow-sm border flex flex-col">
@@ -27,13 +27,26 @@ const CodeBlock: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 
 export function DeploymentGuide(): React.ReactNode {
+    const [isPdfLoading, setIsPdfLoading] = useState(false);
+
+    const handleDownloadPdf = () => {
+        generatePdf('pdf-content', 'AgriGrant_SC_Deployment_Guide', setIsPdfLoading);
+    };
+
     return (
-        <div className="space-y-12">
+        <div className="space-y-12" id="pdf-content">
             <div className="border-b border-gray-200 pb-5">
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Deployment Guide</h1>
-                <p className="mt-2 max-w-4xl text-lg text-gray-500">
-                    How to get your AgriGrant SC application online.
-                </p>
+                <div className="sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Deployment Guide</h1>
+                        <p className="mt-2 max-w-4xl text-lg text-gray-500">
+                            How to get your AgriGrant SC application online.
+                        </p>
+                    </div>
+                     <div className="mt-4 sm:mt-0 sm:ml-4">
+                        <PdfDownloadButton isLoading={isPdfLoading} onClick={handleDownloadPdf} />
+                    </div>
+                </div>
             </div>
 
             <div className="space-y-8">

@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import type { GrantProgram } from '../../types';
 import { ACRONYMS } from '../../types';
 import { Acronym } from '../ui/Tooltip';
+import { PdfDownloadButton, generatePdf } from '../ui/PdfGenerator';
 
 interface GrantProgramsProps {
     title: string;
@@ -86,18 +86,30 @@ const GrantCard: React.FC<{ program: GrantProgram; isOpen: boolean; onToggle: ()
 
 export function GrantPrograms({ title, programs }: GrantProgramsProps): React.ReactNode {
     const [openAccordion, setOpenAccordion] = useState<string | null>(programs.length > 0 ? programs[0].id : null);
+    const [isPdfLoading, setIsPdfLoading] = useState(false);
 
     const handleToggle = (id: string) => {
         setOpenAccordion(openAccordion === id ? null : id);
     };
 
+    const handleDownloadPdf = () => {
+        generatePdf('pdf-content', `AgriGrant_SC_${title}`, setIsPdfLoading);
+    };
+
     return (
-        <div className="space-y-8">
+        <div className="space-y-8" id="pdf-content">
             <div className="border-b border-gray-200 pb-5">
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">{title}</h1>
-                <p className="mt-2 max-w-4xl text-lg text-gray-500">
-                    Key details for South Carolina farms under 5 acres. Click any grant to expand.
-                </p>
+                <div className="sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">{title}</h1>
+                        <p className="mt-2 max-w-4xl text-lg text-gray-500">
+                            Key details for South Carolina farms under 5 acres. Click any grant to expand.
+                        </p>
+                    </div>
+                    <div className="mt-4 sm:mt-0 sm:ml-4">
+                        <PdfDownloadButton isLoading={isPdfLoading} onClick={handleDownloadPdf} />
+                    </div>
+                </div>
             </div>
             <div className="space-y-4">
                 {programs.map(program => (

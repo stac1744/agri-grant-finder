@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { nrcsPrograms, amsPrograms, otherPrograms } from '../../data/grantData';
 import type { ViewType } from '../../types';
 import { SuccessRateChart } from '../charts/SuccessRateChart';
+import { PdfDownloadButton, generatePdf } from '../ui/PdfGenerator';
 
 interface DashboardProps {
     setActiveView: (view: ViewType) => void;
 }
 
 export function Dashboard({ setActiveView }: DashboardProps): React.ReactNode {
+    const [isPdfLoading, setIsPdfLoading] = useState(false);
 
     const chartData = [
         { name: 'CSP', 'Success Rate': 53, fill: '#8884d8' },
@@ -26,15 +28,26 @@ export function Dashboard({ setActiveView }: DashboardProps): React.ReactNode {
         { name: 'All CSP Enhancements', view: 'CSP Enhancements' as ViewType, count: 'View All' },
     ];
 
+    const handleDownloadPdf = () => {
+        generatePdf('pdf-content', 'AgriGrant_SC_Dashboard', setIsPdfLoading);
+    };
+
     return (
-        <div className="space-y-12">
+        <div className="space-y-12" id="pdf-content">
             <div className="border-b border-gray-200 pb-5">
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl">
-                    Agriculture Grant Guide
-                </h1>
-                <p className="mt-2 max-w-4xl text-lg text-gray-500">
-                    For Farms Under 5 Acres in South Carolina (FY2025)
-                </p>
+                 <div className="sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl">
+                            Agriculture Grant Guide
+                        </h1>
+                        <p className="mt-2 max-w-4xl text-lg text-gray-500">
+                            For Farms Under 5 Acres in South Carolina (FY2025)
+                        </p>
+                    </div>
+                    <div className="mt-4 sm:mt-0 sm:ml-4">
+                        <PdfDownloadButton isLoading={isPdfLoading} onClick={handleDownloadPdf} />
+                    </div>
+                </div>
                 <p className="mt-1 text-sm text-gray-500">Information current as of August 2025</p>
             </div>
 

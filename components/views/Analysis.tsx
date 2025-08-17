@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Acronym } from '../ui/Tooltip';
 import { ACRONYMS } from '../../types';
+import { PdfDownloadButton, generatePdf } from '../ui/PdfGenerator';
 
 const Section: React.FC<{ title: string; children: React.ReactNode; className?: string }> = ({ title, children, className = '' }) => (
     <div className={`bg-white p-6 rounded-lg shadow-sm ${className}`}>
@@ -26,6 +27,8 @@ const Step: React.FC<{ number: number; title: string; children: React.ReactNode;
 );
 
 export function Analysis(): React.ReactNode {
+    const [isPdfLoading, setIsPdfLoading] = useState(false);
+
     const renderTextWithAcronyms = (text: string) => {
         const words = text.split(/(\s+|\(|\)|,|\.)/);
         return words.map((word, index) => {
@@ -36,14 +39,25 @@ export function Analysis(): React.ReactNode {
             return word;
         });
     };
+
+    const handleDownloadPdf = () => {
+        generatePdf('pdf-content', 'AgriGrant_SC_Analysis', setIsPdfLoading);
+    };
     
     return (
-        <div className="space-y-12">
+        <div className="space-y-12" id="pdf-content">
             <div className="border-b border-gray-200 pb-5">
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Strategic Grant Acquisition Roadmap</h1>
-                <p className="mt-2 max-w-4xl text-lg text-gray-500">
-                    Beyond individual grants, a strategic approach unlocks stacked benefits, increasing both your funding and your farm's resilience. This analysis provides a strategic roadmap for small farms in South Carolina.
-                </p>
+                <div className="sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Strategic Grant Acquisition Roadmap</h1>
+                        <p className="mt-2 max-w-4xl text-lg text-gray-500">
+                            Beyond individual grants, a strategic approach unlocks stacked benefits, increasing both your funding and your farm's resilience. This analysis provides a strategic roadmap for small farms in South Carolina.
+                        </p>
+                    </div>
+                     <div className="mt-4 sm:mt-0 sm:ml-4">
+                        <PdfDownloadButton isLoading={isPdfLoading} onClick={handleDownloadPdf} />
+                    </div>
+                </div>
             </div>
 
             <Section title="The 'Golden Path': A Step-by-Step Grant Stacking Strategy">

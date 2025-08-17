@@ -1,15 +1,28 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { formsData } from '../../data/formData';
+import { PdfDownloadButton, generatePdf } from '../ui/PdfGenerator';
 
 export function Forms(): React.ReactNode {
+    const [isPdfLoading, setIsPdfLoading] = useState(false);
+
+    const handleDownloadPdf = () => {
+        generatePdf('pdf-content', 'AgriGrant_SC_Forms', setIsPdfLoading);
+    };
+
     return (
-        <div className="space-y-8">
+        <div className="space-y-8" id="pdf-content">
             <div className="border-b border-gray-200 pb-5">
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Key Program Forms</h1>
-                <p className="mt-2 max-w-4xl text-lg text-gray-500">
-                    A collection of important forms for applying to and participating in USDA conservation programs.
-                </p>
+                 <div className="sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Key Program Forms</h1>
+                        <p className="mt-2 max-w-4xl text-lg text-gray-500">
+                            A collection of important forms for applying to and participating in USDA conservation programs.
+                        </p>
+                    </div>
+                     <div className="mt-4 sm:mt-0 sm:ml-4">
+                        <PdfDownloadButton isLoading={isPdfLoading} onClick={handleDownloadPdf} />
+                    </div>
+                </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {formsData.map((form) => (

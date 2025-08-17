@@ -1,9 +1,9 @@
-
 import React, { useState, useMemo } from 'react';
 import { cspEnhancements } from '../../data/grantData';
 import type { CspEnhancement, CspLandUse } from '../../types';
 import { ACRONYMS } from '../../types';
 import { Acronym } from '../ui/Tooltip';
+import { PdfDownloadButton, generatePdf } from '../ui/PdfGenerator';
 
 const landUseOptions: CspLandUse[] = ['Crop', 'Pasture/Range', 'Forest', 'Associated Ag Land/Farmstead', 'All'];
 
@@ -11,6 +11,7 @@ export function CspEnhancements(): React.ReactNode {
     const [searchTerm, setSearchTerm] = useState('');
     const [landUseFilter, setLandUseFilter] = useState<CspLandUse | 'All Categories'>('All Categories');
     const [csafFilter, setCsafFilter] = useState<boolean | null>(null);
+    const [isPdfLoading, setIsPdfLoading] = useState(false);
 
     const filteredEnhancements = useMemo(() => {
         return cspEnhancements.filter(e => {
@@ -37,14 +38,25 @@ export function CspEnhancements(): React.ReactNode {
             return word;
         });
     };
+    
+    const handleDownloadPdf = () => {
+        generatePdf('pdf-content', 'AgriGrant_SC_CSP_Enhancements', setIsPdfLoading);
+    };
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-8" id="pdf-content">
             <div className="border-b border-gray-200 pb-5">
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">FY2025 CSP Enhancements for SC</h1>
-                <p className="mt-2 max-w-4xl text-lg text-gray-500">
-                    A detailed, filterable list of all Conservation Stewardship Program enhancements available for small farms.
-                </p>
+                 <div className="sm:flex sm:items-center sm:justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">FY2025 CSP Enhancements for SC</h1>
+                        <p className="mt-2 max-w-4xl text-lg text-gray-500">
+                            A detailed, filterable list of all Conservation Stewardship Program enhancements available for small farms.
+                        </p>
+                    </div>
+                     <div className="mt-4 sm:mt-0 sm:ml-4">
+                        <PdfDownloadButton isLoading={isPdfLoading} onClick={handleDownloadPdf} />
+                    </div>
+                </div>
             </div>
             
             {/* Filters */}
