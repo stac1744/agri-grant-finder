@@ -6,6 +6,8 @@ import { Dashboard } from './components/views/Dashboard';
 import { GrantPrograms } from './components/views/GrantPrograms';
 import { CspEnhancements } from './components/views/CspEnhancements';
 import { Analysis } from './components/views/Analysis';
+import { GrantCalculator } from './components/views/GrantCalculator';
+import { Forms } from './components/views/Forms';
 import { nrcsPrograms, amsPrograms, otherPrograms, scdaPrograms, nifaPrograms } from './data/grantData';
 import type { ViewType } from './types';
 
@@ -31,6 +33,10 @@ export default function App(): React.ReactNode {
         return <CspEnhancements />;
       case 'Analysis':
         return <Analysis />;
+      case 'Grant Calculator':
+        return <GrantCalculator />;
+      case 'Forms':
+        return <Forms />;
       default:
         return <Dashboard setActiveView={setActiveView} />;
     }

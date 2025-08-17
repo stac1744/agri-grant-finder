@@ -17,14 +17,22 @@ const InfoCard: React.FC<{ title: string; children: React.ReactNode; link: strin
     </div>
 );
 
+const CodeBlock: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+    <pre className="mt-2 bg-gray-100 p-3 rounded-md overflow-x-auto">
+        <code className="text-sm font-mono text-gray-800 whitespace-pre-wrap">
+            {children}
+        </code>
+    </pre>
+);
+
 
 export function DeploymentGuide(): React.ReactNode {
     return (
         <div className="space-y-12">
             <div className="border-b border-gray-200 pb-5">
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Free Deployment Guide</h1>
+                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Deployment Guide</h1>
                 <p className="mt-2 max-w-4xl text-lg text-gray-500">
-                    How to get your AgriGrant SC application online for free.
+                    How to get your AgriGrant SC application online.
                 </p>
             </div>
 
@@ -73,6 +81,66 @@ export function DeploymentGuide(): React.ReactNode {
                         </li>
                         <li>Click "Deploy". Your application will be live in a few minutes and will automatically redeploy whenever you push new changes to your main branch.</li>
                     </ol>
+                </div>
+
+                <div className="bg-white p-6 rounded-lg shadow-sm">
+                    <h2 className="text-xl font-semibold text-gray-900">Self-Hosting on a VPS with Caddy (Advanced)</h2>
+                    <p className="mt-3 text-gray-600">
+                        For full control, you can host this app on a Virtual Private Server (VPS) from providers like Contabo, DigitalOcean, or Linode. We recommend the <a href="https://caddyserver.com/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline font-medium">Caddy web server</a> because it's incredibly simple and provides free, automatic HTTPS security.
+                    </p>
+                    <p className="mt-3 text-gray-600 mb-4">
+                        This guide assumes you have a VPS running Ubuntu and a domain name pointed to your server's IP address.
+                    </p>
+                    <ol className="list-decimal list-inside space-y-6 text-gray-700">
+                        <li>
+                            <strong>Connect to your server via SSH.</strong>
+                            <CodeBlock>ssh root@your_server_ip</CodeBlock>
+                        </li>
+                        <li>
+                            <strong>Install prerequisites (Git & Caddy).</strong> Caddy requires adding its official repository for the latest version.
+                            <CodeBlock>{`sudo apt update
+sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt update
+sudo apt install -y git caddy`}</CodeBlock>
+                        </li>
+                         <li>
+                            <strong>Get the Application Code.</strong> Clone the project into the standard web directory.
+                            <CodeBlock>{`cd /var/www
+sudo git clone https://your-git-repository-url.com/agrigrant.git`}</CodeBlock>
+                             <p className="text-xs text-gray-500 mt-1 pl-4">Replace the URL with your project's repository URL.</p>
+                        </li>
+                        <li>
+                            <strong>Create and edit a <code className="text-sm bg-gray-200 p-1 rounded">Caddyfile</code>.</strong> Caddy uses a simple, powerful configuration file.
+                            <CodeBlock>sudo nano /etc/caddy/Caddyfile</CodeBlock>
+                            <p className="mt-2 pl-4">Delete the default content and replace it with this configuration. This tells Caddy where your site is and how to handle routing for a single-page app.</p>
+                            <CodeBlock>{`your_domain.com {
+    root * /var/www/agrigrant
+    encode gzip
+    file_server {
+        try_files {path} /index.html
+    }
+}`}</CodeBlock>
+                             <p className="text-xs text-gray-500 mt-1 pl-4">Replace <code className="text-xs bg-gray-200 p-0.5 rounded">your_domain.com</code> with your actual domain name.</p>
+                        </li>
+                        <li>
+                            <strong>Reload Caddy to apply the configuration.</strong>
+                            <CodeBlock>sudo systemctl reload caddy</CodeBlock>
+                        </li>
+                         <li>
+                            <strong>Open the Firewall.</strong> Allow web traffic through the firewall (if you are using one like ufw).
+                            <CodeBlock>{`sudo ufw allow http
+sudo ufw allow https
+sudo ufw status # To confirm`}</CodeBlock>
+                        </li>
+                    </ol>
+                    <div className="mt-6 bg-primary-50 border-l-4 border-primary-400 p-4 rounded-r-md">
+                        <p className="font-semibold text-primary-800">Deployment Complete!</p>
+                        <p className="mt-1 text-primary-700">
+                            Your site is now live at <code className="text-sm bg-primary-100 p-1 rounded">https://your_domain.com</code>. Caddy has automatically provisioned an SSL certificate for you. To update the app in the future, just run <code className="text-sm bg-primary-100 p-1 rounded">sudo git pull</code> in the <code className="text-sm bg-primary-100 p-1 rounded">/var/www/agrigrant</code> directory on your server.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { nrcsPrograms, amsPrograms, otherPrograms } from '../../data/grantData';
 import type { ViewType } from '../../types';
@@ -45,7 +44,7 @@ export function Dashboard({ setActiveView }: DashboardProps): React.ReactNode {
                     <div className="bg-white p-6 rounded-lg shadow">
                         <h2 className="text-xl font-semibold text-gray-900">Executive Summary</h2>
                         <p className="mt-4 text-gray-600 space-y-4">
-                           This updated report details all major grant programs available in FY2025 for South Carolina (SC) farms under 5 acres, focusing exclusively on grants (no loans) from USDA (NRCS, AMS, NIFA), EPA, USFWS, NFWF, SARE, Xerces Society, and SC-specific programs. It expands the previous report by including all FY2025 Conservation Stewardship Program (CSP) enhancements from the provided Delaware CSP Activity List (adapted for SC), tailored for small farms. Small farms are prioritized as “beginning,” “socially disadvantaged,” or “limited resource” producers, with no minimum acreage requirements, making them eligible for conservation, production, and marketing grants. Total FY2025 funding exceeds $10B nationally, with $100M+ targeting small/beginning farmers (e.g., SARE Producer Grants: $15K-$25K; EQIP cost-share: 50-90%). SC emphasizes high tunnels, organics, and habitat.
+                           This guide details major FY2025 grant programs for South Carolina (SC) farms under 5 acres. It covers grants (no loans) from federal agencies like USDA (NRCS, AMS, NIFA), EPA, and partners such as SARE and the Xerces Society, plus state-level SCDA programs. The guide includes a comprehensive list of all FY2025 Conservation Stewardship Program (CSP) enhancements relevant to SC's small-scale agriculture. Small farms, especially those classified as beginning, socially disadvantaged, or limited resource, are prioritized for funding and often have no minimum acreage requirements. Nationally, available funding exceeds $10B, with significant portions targeting small producers. Key SC priorities include high tunnels, organic transitions, and pollinator habitat.
                         </p>
                     </div>
 
@@ -79,23 +78,6 @@ export function Dashboard({ setActiveView }: DashboardProps): React.ReactNode {
                                 </li>
                             ))}
                         </ul>
-                    </div>
-
-                    {/* Contacts */}
-                    <div className="bg-white p-6 rounded-lg shadow">
-                        <h2 className="text-xl font-semibold text-gray-900">Key Contacts</h2>
-                        <div className="mt-4 space-y-4">
-                            <div>
-                                <h3 className="font-semibold text-gray-800">SC NRCS</h3>
-                                <p className="text-gray-600">Stac</p>
-                                <p className="text-gray-500">843-550-0683</p>
-                            </div>
-                            <div>
-                                <h3 className="font-semibold text-gray-800">SCDA</h3>
-                                <p className="text-gray-600">Betsy Dorton</p>
-                                <p className="text-gray-500">bdorton@scda.sc.gov</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

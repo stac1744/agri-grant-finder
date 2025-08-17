@@ -1,5 +1,5 @@
 
-export type ViewType = 'Dashboard' | 'USDA NRCS' | 'USDA AMS' | 'SCDA' | 'USDA NIFA' | 'Other Grants' | 'CSP Enhancements' | 'Analysis';
+export type ViewType = 'Dashboard' | 'USDA NRCS' | 'USDA AMS' | 'SCDA' | 'USDA NIFA' | 'Other Grants' | 'CSP Enhancements' | 'Analysis' | 'Grant Calculator' | 'Forms';
 
 export interface GrantProgram {
   id: string;
